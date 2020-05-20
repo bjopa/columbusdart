@@ -1,0 +1,12 @@
+--CREATE TABLE PLAYER (
+--    player_id INT NOT NULL IDENTITY ,
+--    first_name VARCHAR NOT NULL,
+--    last_name VARCHAR NOT NULL,
+--    nickname VARCHAR NOT NULL,
+--    PRIMARY KEY(player_id)
+-- );
+--
+--INSERT INTO PLAYER(first_name, last_name, nickname, best_score, best_date) values ('Björn', 'Wange', 'Nalle');
+--INSERT INTO PLAYER(first_name, last_name, nickname, best_score, best_date) values ('Karl', 'Anka', 'Kalle');
+--INSERT INTO PLAYER(first_name, last_name, nickname, best_score, best_date) values ('Mustafa', 'Pigg', 'Musse');
+--INSERT INTO PLAYER(first_name, last_name, nickname, best_score, best_date) values ('Jan', 'Longlegs', 'Janne');

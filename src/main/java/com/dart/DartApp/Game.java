@@ -31,10 +31,6 @@ public class Game {
         return gameNo;
     }
 
-    public void setGameNo(int gameNo) {
-        this.gameNo = gameNo;
-    }
-
     public HashMap<String, Integer> getPlayerScore() {
         return playerScore;
     }
@@ -46,8 +42,5 @@ public class Game {
     public HashMap<Integer, String> getRoundTarget() {
         return roundTarget;
     }
-
-    public void setRoundTarget(HashMap<Integer, String> roundTarget) {
-        this.roundTarget = roundTarget;
-    }
+    
 }

@@ -39,11 +39,22 @@ class PlayerRepository {
         return "Success";
     }
 
+    String deletePlayer(String nickname) {
+        try (Connection conn = dataSource.getConnection();
+        PreparedStatement ps = conn.prepareStatement("DELETE FROM dbo.\" Player\" WHERE nickname = ?")) {
+            ps.setString(1, nickname);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "Success";
+    }
+
     List<Player> getAllPlayers() {
         List<Player> players = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM dbo.[ Player]")) {
+             ResultSet rs = stmt.executeQuery("SELECT * FROM dbo.\" Player\"")) {
             while (rs.next()) {
                 players.add(rsPlayer(rs));
             }

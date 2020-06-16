@@ -1,6 +1,7 @@
 package com.dart.DartApp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class DartController{
     private PlayGame playGame;
 
     @PostMapping("/regplayer")
-    public String regPlayer(@RequestBody String sentData) {
+    public ResponseEntity regPlayer(@RequestBody String sentData) {
         String[] splitOnDash = sentData
                 .replaceAll("=", "")
                 .replaceAll("%C3%A5", "å")
@@ -27,9 +28,14 @@ public class DartController{
                 .replaceAll("%C3%96", "Ö")
                 .split("-");
         for (String s : splitOnDash) {
-            if (!s.matches("[a-zA-Z0-9åÅäÄöÖ]+")) return "What are you doing?\nAllowed characters are a-ö, A-Ö and 0-9!";
+            if (!s.matches("[a-zA-Z0-9åÅäÄöÖ]+")) return ResponseEntity.badRequest().build();
         }
-        return playerRepository.addPlayer(splitOnDash[0], splitOnDash[1], splitOnDash[2]);
+        return ResponseEntity.ok(playerRepository.addPlayer(splitOnDash[0], splitOnDash[1], splitOnDash[2]));
+    }
+
+    @PostMapping("/deleteplayer")
+    public ResponseEntity deletePlayer(@RequestBody String nickname) {
+        return ResponseEntity.ok(playerRepository.deletePlayer(nickname));
     }
 
     @PostMapping("/startgame")

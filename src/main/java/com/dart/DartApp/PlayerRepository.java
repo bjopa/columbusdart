@@ -24,9 +24,9 @@ class PlayerRepository {
                 .build();
     }
 
-    String addPlayer(String firstName, String lastName, String nickname) {
+    boolean addPlayer(String firstName, String lastName, String nickname) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO [ Player] (firstName, lastName, nickname) VALUES (?,?,?)")) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO dbo.\" Player\" (firstName, lastName, nickname) VALUES (?,?,?)")) {
             ps.setString(1, firstName);
             ps.setString(2, lastName);
             ps.setString(3, nickname);
@@ -34,20 +34,22 @@ class PlayerRepository {
         } catch (SQLException e) {
             //e.printStackTrace();
             System.out.println(e.getErrorCode());
-            return e.getErrorCode()==2627 ? "Nickname   \"" + nickname + "\"   not available" : "Unknown error...";
+            //return e.getErrorCode()==2627 ? "Nickname   \"" + nickname + "\"   not available" : "Unknown error...";
+            return false;
         }
-        return "Success";
+        return true;
     }
 
-    String deletePlayer(String nickname) {
+    boolean deletePlayer(String nickname) {
         try (Connection conn = dataSource.getConnection();
         PreparedStatement ps = conn.prepareStatement("DELETE FROM dbo.\" Player\" WHERE nickname = ?")) {
             ps.setString(1, nickname);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return "Success";
+        return true;
     }
 
     List<Player> getAllPlayers() {
@@ -68,7 +70,7 @@ class PlayerRepository {
         List<Player> players = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT top(5) P.playerId, firstName, lastName, nickname, MAX(score) AS bestScore FROM dbo.[ Player] AS P\n" +
+             ResultSet rs = stmt.executeQuery("SELECT top(5) P.playerId, firstName, lastName, nickname, MAX(score) AS bestScore FROM dbo.\" Player\" AS P\n" +
                      "JOIN Player_Plays_Game AS PPG ON P.playerId = PPG.playerId\n" +
                      "GROUP BY P.playerId, firstName, lastName, nickname\n" +
                      "ORDER BY bestScore DESC");) {

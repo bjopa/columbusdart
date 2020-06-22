@@ -30,12 +30,15 @@ public class DartController{
         for (String s : splitOnDash) {
             if (!s.matches("[a-zA-Z0-9åÅäÄöÖ]+")) return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(playerRepository.addPlayer(splitOnDash[0], splitOnDash[1], splitOnDash[2]));
+
+        boolean success = playerRepository.addPlayer(splitOnDash[0], splitOnDash[1], splitOnDash[2]);
+        return success ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/deleteplayer")
     public ResponseEntity deletePlayer(@RequestBody String nickname) {
-        return ResponseEntity.ok(playerRepository.deletePlayer(nickname));
+        boolean success = playerRepository.deletePlayer(nickname);
+        return success ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/startgame")

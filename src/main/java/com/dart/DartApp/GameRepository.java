@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.time.LocalDate;
 
 @Repository
 class GameRepository {
@@ -26,5 +27,17 @@ class GameRepository {
             System.out.println("Error: " + e.getErrorCode());
         }
         return highestGameNo;
+    }
+
+    void addGame() {
+        LocalDate today = LocalDate.now();
+        try (Connection conn = dataSource.getConnection();
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO Game (typeId, gameDate) VALUES (?,?)")) {
+            ps.setString(1, "1");
+            ps.setString(2, today.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

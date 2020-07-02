@@ -41,10 +41,11 @@ public class DartController{
         return success ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
-    @PostMapping("/startgame")
-    public void startGame(@RequestBody String[] sentData) {
-        Game game = new Game(gameRepository.findGameNo() + 1, sentData);
-        playGame.startGame(game);
+    @GetMapping("/newgame")
+    public void newGame() {
+        System.out.println("Starting new Game");
+        gameRepository.addGame();
+        System.out.println(gameRepository.findGameNo());
     }
 
     @PostMapping("/reportThrow")

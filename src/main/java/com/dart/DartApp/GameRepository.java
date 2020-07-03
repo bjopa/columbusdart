@@ -25,12 +25,11 @@ class GameRepository {
         } catch (SQLException e) {
             //e.printStackTrace();
             System.out.println("Error: " + e.getErrorCode());
-            return -1;
         }
         return highestGameNo;
     }
 
-    int addGame() {
+    void addGame() {
         LocalDate today = LocalDate.now();
         try (Connection conn = dataSource.getConnection();
         PreparedStatement ps = conn.prepareStatement("INSERT INTO Game (typeId, gameDate) VALUES (?,?)")) {
@@ -39,8 +38,6 @@ class GameRepository {
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            return 0;
         }
-        return 1;
     }
 }

@@ -42,14 +42,10 @@ public class DartController{
     }
 
     @GetMapping("/newgame")
-    public int newGame() {
+    public void newGame() {
         System.out.println("Starting new Game");
-        int result = gameRepository.addGame();
-        if (result == 1) {
-            System.out.println("New game number: " + gameRepository.findGameNo());
-            return gameRepository.findGameNo();
-        }
-        return -1;
+        gameRepository.addGame();
+        System.out.println(gameRepository.findGameNo());
     }
 
     @PostMapping("/reportThrow")

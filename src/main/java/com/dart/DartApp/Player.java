@@ -1,21 +1,17 @@
 package com.dart.DartApp;
 
 public class Player {
-    public int playerId;
+    public String nickname;
     public String firstName;
     public String lastName;
-    public String nickname;
-    public int bestScore;
 
     public static class Builder {
-        private int playerId;
+        private String nickname;
         private String firstName;
         private String lastName;
-        private String nickname;
-        private int bestScore;
 
-        Builder playerId(int playerId) {
-            this.playerId = playerId;
+        Builder nickname(String nickname) {
+            this.nickname = nickname;
             return this;
         }
 
@@ -29,27 +25,15 @@ public class Player {
             return this;
         }
 
-        Builder nickname(String nickname) {
-            this.nickname = nickname;
-            return this;
-        }
-
-        Builder bestScore(int bestScore) {
-            this.bestScore = bestScore;
-            return this;
-        }
-
         public Player build() {
             return new Player(this);
         }
     }
     
     private Player(Builder builder) {
-        this.playerId = builder.playerId;
+        this.nickname = builder.nickname;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
-        this.nickname = builder.nickname;
-        this.bestScore = builder.bestScore;
     }
 
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -13,8 +14,6 @@ public class DartController{
     private PlayerRepository playerRepository;
     @Autowired
     private GameRepository gameRepository;
-    @Autowired
-    private PlayGame playGame;
 
     @PostMapping("/regplayer")
     public ResponseEntity regPlayer(@RequestBody String sentData) {
@@ -41,15 +40,28 @@ public class DartController{
         return success ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/newgame")
-    public int newGame() {
-        System.out.println("Starting new Game");
-        int result = gameRepository.addGame();
-        if (result == 1) {
-            System.out.println("New game number: " + gameRepository.findGameNo());
-            return gameRepository.findGameNo();
+    @GetMapping("/getallplayers")
+    public List<Player> getAllPlayers() {
+        return playerRepository.getAllPlayers();
+    }
+
+    @PostMapping("/addgame")
+    public int newGame(@RequestBody String[] selectedPlayers) {
+        int newGameId = -1;
+        int addGame = 0;
+        int addPPG = 1;
+        System.out.println("Starting new Game...");
+        addGame = gameRepository.addGame();
+        if (addGame == 1) {
+            newGameId = gameRepository.findGameNo();
+            System.out.println("New game number: " + newGameId);
+            for (String player : selectedPlayers
+                 ) {
+                int addPPGTemp = gameRepository.addPPG(player, newGameId);
+                addPPG = addPPG == 1 ? addPPGTemp : 0;
+            }
         }
-        return -1;
+        return addGame == 1 && addPPG == 1 ? newGameId : -1;
     }
 
     @PostMapping("/reportThrow")
@@ -57,10 +69,7 @@ public class DartController{
         //playGame.reportThrow(score);
     }
 
-    @GetMapping("/getallplayers")
-    public List<Player> getAllPlayers() {
-        return playerRepository.getAllPlayers();
-    }
+    /** HIGHSCORELISTS */
 
     @GetMapping("/topalltime")
     public List<Player> getTopListFromAllTime() {

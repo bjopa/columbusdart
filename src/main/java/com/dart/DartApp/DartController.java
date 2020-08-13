@@ -46,7 +46,7 @@ public class DartController{
     }
 
     @PostMapping("/addgame")
-    public int newGame(@RequestBody String[] selectedPlayers) {
+    public int addGame(@RequestBody String[] selectedPlayers) {
         int newGameId = -1;
         int addGame = 0;
         int addPPG = 1;
@@ -64,9 +64,14 @@ public class DartController{
         return addGame == 1 && addPPG == 1 ? newGameId : -1;
     }
 
-    @PostMapping("/reportThrow")
-    public void reportThrow(@RequestBody int score) {
-        //playGame.reportThrow(score);
+    @PostMapping("/reportthrow")
+    public void reportThrow(@RequestBody String sentData) {
+        gameRepository.reportThrow(sentData);
+    }
+
+    @PostMapping("/reportgame")
+    public void reportGame(@RequestBody String sentData) {
+        gameRepository.updatePPG(sentData);
     }
 
     /** HIGHSCORELISTS */

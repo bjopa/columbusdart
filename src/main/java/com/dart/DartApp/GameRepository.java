@@ -58,4 +58,34 @@ class GameRepository {
         }
         return 1;
     }
+
+    void reportThrow(String throwData) {
+        String[] splitData = throwData.split("-");
+//        try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement("INSERT INTO Throw (nickname, gameId, dartNumber, target) VALUES (?,?,?,?)")) {
+//            ps.setString(1, splitData[0]);
+//            ps.setString(2, splitData[1]);
+//            ps.setString(3, splitData[2]);
+//            ps.setString(4, splitData[3]);
+//            ps.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            System.out.println("Error in reportThrow: " + e.getErrorCode());
+//        }
+
+    }
+
+    void updatePPG(String gameData) { //OK
+        String[] splitData = gameData.split("-");
+//        try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement("UPDATE PlayerPlaysGame " +
+//                "SET total = (?)" +
+//                "WHERE nickname = (?) AND gameId = (?)")) {
+//            ps.setString(1, splitData[2]);
+//            ps.setString(2, splitData[0]);
+//            ps.setString(3, splitData[1]);
+//            ps.executeUpdate();
+//        } catch (SQLException e) {
+//            //e.printStackTrace();
+//            System.out.println("Error in updatePPG: " + e.getErrorCode());
+//        }
+    }
 }

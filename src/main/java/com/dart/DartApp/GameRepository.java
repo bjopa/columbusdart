@@ -61,11 +61,19 @@ class GameRepository {
 
     void reportThrow(String throwData) {
         String[] splitData = throwData.split("-");
-//        try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement("INSERT INTO Throw (nickname, gameId, dartNumber, target) VALUES (?,?,?,?)")) {
+        for (String s : splitData
+             ) {
+            System.out.println(s);
+        }
+//        try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement("INSERT INTO Throw (timeStamp, nickname, gameId, dartNumber, target, hit, score) VALUES (?,?,?,?,?,?,?)")) {
 //            ps.setString(1, splitData[0]);
 //            ps.setString(2, splitData[1]);
 //            ps.setString(3, splitData[2]);
 //            ps.setString(4, splitData[3]);
+//            ps.setString(4, splitData[4]);
+//            ps.setString(4, splitData[5]);
+//            ps.setString(4, splitData[6]);
+//            ps.setString(4, splitData[7]);
 //            ps.executeUpdate();
 //        } catch (SQLException e) {
 //            e.printStackTrace();
